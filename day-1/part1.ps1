@@ -16,4 +16,4 @@ captcha '1122' # 3
 captcha '1111' # 4
 captcha '1234' # 0
 captcha '91212129' # 9
-captcha (get-content './day1.txt')
+captcha (get-content './input.txt')
