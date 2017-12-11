@@ -21,7 +21,8 @@ function spiral ([int]$data) {
     if ($bottomarray -contains $data) { steps $bottomarray $data $stepsofbound }
     elseif ($leftarray -contains $data) { steps $leftarray $data $stepsofbound }
     elseif ($toparray -contains $data) { steps $toparray $data $stepsofbound }
-    else { steps $rightarray $data $stepsofbound }
+    elseif ($rightarray -contains $data) { steps $rightarray $data $stepsofbound }
+    else { "Something went wrong :(" }
 }
 
 function steps ([array]$array, [int]$data, [int]$stepsofbound) {
