@@ -17,4 +17,4 @@ captcha '1221' # 0
 captcha '123425' # 4
 captcha '123123' # 12
 captcha '12131415' # 4
-captcha (get-content './input.txt')
+captcha (get-content './input.txt') # 1166

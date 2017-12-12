@@ -20,4 +20,4 @@ function checksum ([array]$spreadsheet) {
 }
 
 checksum @('5 9 2 8','9 4 7 3','3 8 6 5') # 9
-checksum (get-content './input.txt')
+checksum (get-content './input.txt') # 244
