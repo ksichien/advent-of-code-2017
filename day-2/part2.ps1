@@ -1,3 +1,4 @@
+#!/usr/bin/env pwsh
 function checksum ([array]$spreadsheet) {
     $checksum = New-Object System.Collections.ArrayList
     foreach($row in $spreadsheet) {

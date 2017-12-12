@@ -1,3 +1,4 @@
+#!/usr/bin/env pwsh
 function captcha ([string]$sequence) {
     $array1 = $sequence.split().tochararray() | foreach {invoke-expression $_} # convert string to int array
     $array2 = New-Object System.Collections.ArrayList

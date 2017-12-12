@@ -1,3 +1,4 @@
+#!/usr/bin/env pwsh
 function spiral ([int]$data) {
     $rootofbound = [Math]::Ceiling([Math]::Sqrt($data)) # find the nearest perfect square root
     if ($rootofbound % 2 -eq 0) {$rootofbound += 1} # make sure the root is an uneven number
@@ -8,7 +9,7 @@ function spiral ([int]$data) {
     $bottomleftcorner = $bound - $stepsofbound
     $topleftcorner = $bottomleftcorner - $stepsofbound
     $toprightcorner = $topleftcorner - $stepsofbound
-    $bottomrightcorner = $toprightcorner - ($stepsofbound-1) # 1 step less because otherwise the array's last element overlaps with the boundary
+    $bottomrightcorner = $toprightcorner - ($stepsofbound-1) # the next number is the boundary of the previous chain
 
     # calculate the steps based on which two corners the data is between
     switch ($true) {
@@ -21,10 +22,10 @@ function spiral ([int]$data) {
 }
 
 function steps ([array]$array, [int]$data, [int]$stepsofbound) { # determine which corner the data is closer to
-    if ($array.indexof($data) -ge $array.length/2) { # if closer to the upper corner, subtract their indexes to find the diffference
+    if ($array.indexof($data) -ge $array.length/2) { # if closer to the upper corner, subtract their indexes to find the difference
         $difference = ($array.length-1) - $array.indexof($data)
     }
-    else { # if closer to the bottom corner, the data's index is equal to their difference
+    else { # if closer to the bottom corner, the data's index is equal to the difference
         $difference = $array.indexof($data)
     }
     write-host ($stepsofbound - $difference)
