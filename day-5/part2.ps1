@@ -9,7 +9,6 @@ function jump ([array]$instructions) {
         if ($currentval -ge 3) {$instructions[$currentpos]=$currentval-1} else {$instructions[$currentpos]=$currentval+1}
         $currentpos = $nextpos
     } while ($currentpos -lt ($instructions.length))
-    $instructions -join ","
     $counter
 }
 
