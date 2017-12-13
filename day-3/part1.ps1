@@ -17,7 +17,7 @@ function spiral ([int]$data) {
         ($data -in $topleftcorner..$bottomleftcorner) { steps @($topleftcorner..$bottomleftcorner) $data $stepsofbound; break }
         ($data -in $toprightcorner..$topleftcorner) { steps @($toprightcorner..$topleftcorner) $data $stepsofbound; break }
         ($data -in $bottomrightcorner..$toprightcorner) { steps @($bottomrightcorner..$toprightcorner) $data $stepsofbound; break }
-        default { "Something went wrong :(" }
+        default { 'Something went wrong :(' }
     }
 }
 

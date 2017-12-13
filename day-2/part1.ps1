@@ -1,6 +1,6 @@
 #!/usr/bin/env pwsh
 function checksum ([array]$spreadsheet) {
-    $checksum =  New-Object System.Collections.ArrayList
+    $checksum = New-Object System.Collections.ArrayList
     foreach($row in $spreadsheet) {
         $line = $row -replace '\s+', ',' # replace whitespace sections with commas to prepare for split
         foreach ($l in $line) {
