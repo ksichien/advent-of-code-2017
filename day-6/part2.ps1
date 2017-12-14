@@ -2,7 +2,9 @@
 function reallocate ([string]$memorybanks) {
     $configuration = $memorybanks.split() | foreach {invoke-expression $_} # convert string to int array
     $counter = 0
+    $loopcounter = 0
     $cfghashtable = @{}
+    $loophashtable = @{}
     do {
         $cfghashtable[$counter++] = $configuration -join ',' # add the current counter (key) and configuration (value) into the hash table
         [int]$operations = ($configuration | measure -maximum).maximum # find the highest number in configuration, this is equal to the redistribution operations
@@ -13,12 +15,16 @@ function reallocate ([string]$memorybanks) {
             $configuration[$index]++
             $operations--
         } while ($operations -ne 0)
-        if ($cfghashtable.containsvalue($configuration -join ',')) { # break while loop when current configuration is found in cfghashtable
-            $loop = $true
+        if ($loophashtable.containsvalue($configuration -join ',')) {$loop = $true}  # the first time current configuration is found in loophashtable, break while loop
+        if ($cfghashtable.containsvalue($configuration -join ',')) {
+            $loopcounter++
+            if ($loopcounter -eq 1) {
+                $loophashtable[$loopcounter] = $configuration -join ',' # the first time current configuration is found in cfghashtable, add it to loophashtable
+            }
         }
     } while ($loop -ne $true)
-    $counter
+    write-host ($loopcounter - 1) # to account for the extra addition from the second if statement
 }
 
-reallocate '0 2 7 0' # 5
-reallocate (get-content './input.txt') # 5042
+reallocate '0 2 7 0' # 4
+reallocate (get-content './input.txt') # 1086
