@@ -2,11 +2,11 @@
 function structure ([array]$towers) {
     $family = @{}
     foreach ($t in $towers) {
-        $tower = $t.split()
-        $name = $tower | select-string -pattern '([a-z]+)' # extract the parent key names
+        $tower = $t.split(' (').split(')')
+        $name = $tower[0] # extract the parents' key names  
         if ($t -like '*-> *') {
             $descendants = $t.split('-> ') # extract all the children's key names
-            $family.add($name[0], $descendants[1].split(', '))  # put the parents (keys) and the children (array of values) inside of a hashtable
+            $family.add($name, $descendants[1].split(', '))  # put the parents (keys) and the children (array of values) inside of a hashtable
         }
     }
     $key = $family.getenumerator() | get-random -count 1 # retrieve random key/value pair from the hashtable
