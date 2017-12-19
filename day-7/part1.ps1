@@ -17,11 +17,11 @@ function findparent ([hashtable]$family, [string]$key) {
     write-host "checking key $key"
     $hash = $family.GetEnumerator() | where-object {$_.value -contains $key} # check if the given key belongs to any of the parent keys in the hashtable
     if ($hash -ne $null) {
-        write-host "key $key not found, switching to parent key" $hash.key
+        write-host "key $key is not the bottom of the tower, switching to parent key" $hash.key
         findparent $family $hash.key # dig deeper into the hash table using the given key's parent key as input
     }
     else {
-        write-host "found $key"
+        write-host "bottom of tower found: $key"
     }
 }
 
