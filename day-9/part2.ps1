@@ -4,8 +4,7 @@ function cleanup ([string]$stream) {
     $data = $stream.tochararray()
     $ignore = $false
     $garbage = $false
-    $depth = 0
-    $score = 0
+    $count = 0
 
     foreach ($char in $data) {
         if ($garbage) {
@@ -16,25 +15,23 @@ function cleanup ([string]$stream) {
             switch ($char) {
                 '!' { $ignore = $true; break }
                 '>' { $garbage = $false; break }
+                default { $count++; break }
             }
         }
         else {
             switch ($char) {
-                '{' { $depth++; break }
                 '<' { $garbage = $true; break }
-                '}' { $score += $depth--; break }
             }
         }
     }
-    $score
+    $count
 }
 
-cleanup '{}' # 1
-cleanup '{{{}}}' # 6
-cleanup '{{},{}}' # 5
-cleanup '{{{},{},{{}}}}' # 16
-cleanup '{<a>,<a>,<a>,<a>}' # 1
-cleanup '{{<ab>},{<ab>},{<ab>},{<ab>}}' # 9
-cleanup '{{<!!>},{<!!>},{<!!>},{<!!>}}' # 9
-cleanup '{{<a!>},{<a!>},{<a!>},{<ab>}}' # 3
-cleanup (get-content './input.txt') # 8337
+cleanup '<>' # 0 
+cleanup '<random characters>' # 17
+cleanup '<<<<>' # 3
+cleanup '<{!>}>' # 2
+cleanup '<!!>' # 0
+cleanup '<!!!>>' # 0
+cleanup '<{o"i!a,<{i<a>' # 10
+cleanup (get-content './input.txt') # 4330
